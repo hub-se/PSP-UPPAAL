@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, P_entered, T_entered, S_entered;
+bool T_holds, P_holds;</declaration>
+	<template>
+		<name x="5" y="5">PrecedenceChain2_State_Before_Untimed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-1054" y="-1232">
+			<name x="-1054" y="-1215">ERROR</name>
+		</location>
+		<location id="id1" x="-1292" y="-1530">
+		</location>
+		<location id="id2" x="-901" y="-1419">
+		</location>
+		<location id="id3" x="-1054" y="-1419">
+			<committed/>
+		</location>
+		<location id="id4" x="-1054" y="-1530">
+			<committed/>
+		</location>
+		<location id="id5" x="-671" y="-1606">
+			<name x="-681" y="-1640">R_Reached</name>
+		</location>
+		<location id="id6" x="-1054" y="-1309">
+			<name x="-1156" y="-1300">MayBeERROR</name>
+		</location>
+		<location id="id7" x="-765" y="-1530">
+			<name x="-748" y="-1530">T_Holds</name>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1054" y="-1287">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-1266" y="-1334">P_entered?</label>
+			<nail x="-1292" y="-1309"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-1266" y="-1555">S_entered?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-1266" y="-1632">R_reached?</label>
+			<nail x="-1292" y="-1606"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-748" y="-1394">R_reached?</label>
+			<nail x="-875" y="-1402"/>
+			<nail x="-671" y="-1402"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-1020" y="-1334">P_entered?</label>
+			<nail x="-901" y="-1309"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-867" y="-1445">T_entered?</label>
+			<nail x="-765" y="-1419"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-1029" y="-1445">P_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-1148" y="-1394">P_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-884" y="-1555">T_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-1054" y="-1496">T_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-799" y="-1581">R_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = PrecedenceChain2_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+	</queries>
+</nta>

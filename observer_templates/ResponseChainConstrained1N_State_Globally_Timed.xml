@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, Z0_reached, Z1_reached, Z2_reached, Z3_reached, T1_reached, T2_reached, T3_reached, S_reached;
+bool T1_holds, T2_holds, T3_holds, Z0_holds, Z1_holds, Z2_holds, Z3_holds, S_holds;
+</declaration>
+	<template>
+		<name x="5" y="5">ResponseChainConstrained1N_State_Globally_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+bool Z_Flag = 0;
+int t0 = 1;
+int t1 = 2;
+int t2 = 3;
+int t3 = 4;</declaration>
+		<location id="id0" x="425" y="-59">
+		</location>
+		<location id="id1" x="128" y="-59">
+		</location>
+		<location id="id2" x="-169" y="-59">
+		</location>
+		<location id="id3" x="-509" y="-59">
+		</location>
+		<location id="id4" x="569" y="-127">
+			<name x="559" y="-161">END</name>
+		</location>
+		<location id="id5" x="247" y="-127">
+			<committed/>
+		</location>
+		<location id="id6" x="-25" y="-127">
+			<committed/>
+		</location>
+		<location id="id7" x="-382" y="-127">
+			<committed/>
+		</location>
+		<location id="id8" x="-628" y="-127">
+			<committed/>
+		</location>
+		<location id="id9" x="-747" y="-127">
+		</location>
+		<init ref="id9"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="399" y="8">Z3_reached?</label>
+			<label kind="assignment" x="399" y="25">Z_Flag = 1</label>
+			<nail x="399" y="0"/>
+			<nail x="425" y="0"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="442" y="-59">c &lt; t3</label>
+			<label kind="synchronisation" x="443" y="-76">T3_reached?</label>
+			<nail x="569" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id0"/>
+			<label kind="guard" x="255" y="-42">T1_holds == 0 &amp;&amp;
+Z1_holds == 1</label>
+			<label kind="assignment" x="255" y="-8">Z_Flag = 1</label>
+			<nail x="264" y="-51"/>
+			<nail x="391" y="-51"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id0"/>
+			<label kind="guard" x="298" y="-127">T3_holds == 0 &amp;&amp;
+Z3_holds == 0</label>
+			<nail x="272" y="-102"/>
+			<nail x="399" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="guard" x="144" y="-59">c &lt; t2</label>
+			<label kind="synchronisation" x="146" y="-76">T2_reached?</label>
+			<nail x="247" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="111" y="8">Z2_reached?</label>
+			<label kind="assignment" x="111" y="25">Z_Flag = 1</label>
+			<nail x="102" y="0"/>
+			<nail x="128" y="0"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-25" y="-34">T2_holds == 0 &amp;&amp;
+Z2_holds == 1</label>
+			<label kind="assignment" x="-8" y="8">Z_Flag = 1</label>
+			<nail x="-17" y="-34"/>
+			<nail x="102" y="-34"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id1"/>
+			<label kind="guard" x="43" y="-127">T2_holds == 0 &amp;&amp;
+Z2_holds == 0</label>
+			<nail x="102" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-195" y="8">Z1_reached?</label>
+			<label kind="assignment" x="-195" y="25">Z_Flag = 1</label>
+			<nail x="-195" y="0"/>
+			<nail x="-169" y="0"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-144" y="-59">c &lt; t1</label>
+			<label kind="synchronisation" x="-144" y="-76">T1_reached?</label>
+			<nail x="-25" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-365" y="-51">T1_holds == 0 &amp;&amp;
+Z1_holds == 1</label>
+			<label kind="assignment" x="-365" y="-17">Z_Flag = 1</label>
+			<nail x="-365" y="-59"/>
+			<nail x="-212" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-322" y="-127">T1_holds == 0 &amp;&amp;
+Z1_holds == 0</label>
+			<nail x="-365" y="-110"/>
+			<nail x="-203" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-467" y="-59">c &lt; t0</label>
+			<label kind="synchronisation" x="-467" y="-76">S_reached?</label>
+			<nail x="-382" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-518" y="8">Z0_reached?</label>
+			<label kind="assignment" x="-518" y="25">Z_Flag = 1</label>
+			<nail x="-535" y="0"/>
+			<nail x="-509" y="0"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-705" y="-59">S_holds == 0 &amp;&amp;
+Z0_holds == 1</label>
+			<label kind="assignment" x="-705" y="-25">Z_Flag = 1</label>
+			<nail x="-679" y="-59"/>
+			<nail x="-569" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-594" y="-119">S_holds == 0 &amp;&amp;
+Z0_holds == 0</label>
+			<nail x="-569" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="365" y="-144">T3_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="guard" x="43" y="-144">T2_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-305" y="-144">T1_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-552" y="-144">S_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-729" y="-144">P_reached?</label>
+			<label kind="assignment" x="-729" y="-127">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = ResponseChainConstrained1N_State_Globally_Timed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+	</queries>
+</nta>

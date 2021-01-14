@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, S_reached, P_reached;
+bool R_holds;</declaration>
+	<template>
+		<name x="5" y="5">Precedence_State_Until_Untimed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-1793" y="-1326">
+			<committed/>
+		</location>
+		<location id="id1" x="-1904" y="-1326">
+		</location>
+		<location id="id2" x="-1487" y="-1224">
+			<name x="-1497" y="-1258">ERROR</name>
+		</location>
+		<location id="id3" x="-1487" y="-1326">
+		</location>
+		<location id="id4" x="-1657" y="-1326">
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-1895" y="-1300">R_holds == 1</label>
+			<nail x="-1802" y="-1300"/>
+			<nail x="-1895" y="-1300"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-1768" y="-1343">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1886" y="-1343">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1887" y="-1436">R_reached?</label>
+			<nail x="-1487" y="-1420"/>
+			<nail x="-1929" y="-1420"/>
+			<nail x="-1929" y="-1326"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1886" y="-1390">R_reached?</label>
+			<nail x="-1666" y="-1369"/>
+			<nail x="-1904" y="-1369"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1640" y="-1241">P_reached?</label>
+			<nail x="-1657" y="-1224"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1640" y="-1351">S_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Precedence_State_Until_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

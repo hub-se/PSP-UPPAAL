@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+bool R_holds, Z0_holds, Z1_holds, Z2_holds, Z3_holds, S_holds, T1_holds, T2_holds, T3_holds;
+broadcast chan Q_reached, S_reached, Z0_reached, Z1_reached, Z2_reached, Z3_reached, T1_reached, T2_reached, T3_reached, P_reached, R_reached;</declaration>
+	<template>
+		<name x="5" y="5">PrecedenceChainConstrainedN1_State_Until_Untimed</name>
+		<declaration>// Place local declarations here.
+bool Z_Flag = 0;
+bool P_Flag = 0;
+bool R_Flag = 0;
+bool Z0_Flag = 0;</declaration>
+		<location id="id0" x="-2108" y="-493">
+			<committed/>
+		</location>
+		<location id="id1" x="-2720" y="-204">
+			<committed/>
+		</location>
+		<location id="id2" x="-2414" y="-204">
+			<committed/>
+		</location>
+		<location id="id3" x="-2235" y="-493">
+			<committed/>
+		</location>
+		<location id="id4" x="-926" y="-340">
+			<committed/>
+		</location>
+		<location id="id5" x="-1258" y="-340">
+			<committed/>
+		</location>
+		<location id="id6" x="-1564" y="-331">
+			<committed/>
+		</location>
+		<location id="id7" x="-3059" y="-493">
+		</location>
+		<location id="id8" x="-2804" y="-493">
+			<committed/>
+		</location>
+		<location id="id9" x="-2923" y="-493">
+			<committed/>
+		</location>
+		<location id="id10" x="-2532" y="-663">
+			<committed/>
+		</location>
+		<location id="id11" x="-2532" y="-493">
+			<committed/>
+		</location>
+		<location id="id12" x="-1079" y="-340">
+			<committed/>
+		</location>
+		<location id="id13" x="-1385" y="-340">
+			<committed/>
+		</location>
+		<location id="id14" x="-1683" y="-331">
+			<committed/>
+		</location>
+		<location id="id15" x="-1929" y="-671">
+			<committed/>
+		</location>
+		<location id="id16" x="-1929" y="-493">
+		</location>
+		<location id="id17" x="-909" y="-493">
+			<name x="-919" y="-527">EVALUATE</name>
+		</location>
+		<location id="id18" x="-1037" y="-433">
+		</location>
+		<location id="id19" x="-1207" y="-493">
+			<committed/>
+		</location>
+		<location id="id20" x="-1343" y="-433">
+		</location>
+		<location id="id21" x="-1521" y="-493">
+			<committed/>
+		</location>
+		<location id="id22" x="-1648" y="-434">
+		</location>
+		<location id="id23" x="-1776" y="-493">
+			<committed/>
+		</location>
+		<init ref="id7"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id16"/>
+			<label kind="guard" x="-2091" y="-484">Z0_holds == 1</label>
+			<label kind="assignment" x="-2090" y="-467">Z0_Flag = 1</label>
+			<nail x="-2109" y="-467"/>
+			<nail x="-1964" y="-467"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id16"/>
+			<label kind="guard" x="-2091" y="-510">Z0_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-2218" y="-510">S_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-2431" y="-518">Z_Flag == 1</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-2431" y="-484">Z0_holds == 0 &amp;&amp;
+Z1_holds == 0 &amp;&amp;
+Z2_holds == 0 &amp;&amp;
+Z3_holds == 0</label>
+			<nail x="-2533" y="-450"/>
+			<nail x="-2235" y="-450"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="assignment" x="-2626" y="-204">R_Flag = 0</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-2057" y="-382">Z0_Flag == 0</label>
+			<label kind="synchronisation" x="-2057" y="-399">R_reached?</label>
+			<nail x="-1929" y="-365"/>
+			<nail x="-3094" y="-365"/>
+			<nail x="-3094" y="-493"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-3043" y="-578">R_holds == 1</label>
+			<nail x="-2924" y="-552"/>
+			<nail x="-3060" y="-552"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id7"/>
+			<label kind="assignment" x="-2813" y="-204">Z_Flag = 0</label>
+			<nail x="-3060" y="-204"/>
+		</transition>
+		<transition>
+			<source ref="id17"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-884" y="-510">R_reached?</label>
+			<nail x="-841" y="-493"/>
+			<nail x="-841" y="-204"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id23"/>
+			<label kind="guard" x="-2218" y="-765">S_holds == 1</label>
+			<nail x="-2235" y="-739"/>
+			<nail x="-1776" y="-739"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id11"/>
+			<label kind="guard" x="-2754" y="-459">T3_holds == 0</label>
+			<nail x="-2780" y="-442"/>
+			<nail x="-2558" y="-442"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id11"/>
+			<label kind="guard" x="-2753" y="-476">T2_holds == 0</label>
+			<nail x="-2770" y="-459"/>
+			<nail x="-2566" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id11"/>
+			<label kind="guard" x="-2753" y="-493">T1_holds == 0</label>
+			<nail x="-2753" y="-476"/>
+			<nail x="-2583" y="-476"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id17"/>
+			<label kind="guard" x="-2770" y="-340">S_holds == 1 &amp;&amp;
+T1_holds == 1 &amp;&amp;
+T2_holds == 1 &amp;&amp;
+T3_holds == 1</label>
+			<nail x="-2803" y="-263"/>
+			<nail x="-884" y="-263"/>
+			<nail x="-884" y="-476"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id18"/>
+			<nail x="-960" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-986" y="-408">R_reached?</label>
+			<label kind="assignment" x="-969" y="-391">R_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-1300" y="-399">R_reached?</label>
+			<label kind="assignment" x="-1283" y="-382">R_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id20"/>
+			<nail x="-1300" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id22"/>
+			<nail x="-1606" y="-331"/>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-1606" y="-399">R_reached?</label>
+			<label kind="assignment" x="-1589" y="-382">R_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id11"/>
+			<label kind="guard" x="-2754" y="-510">S_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-2907" y="-510">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-3041" y="-510">Q_reached?</label>
+			<label kind="assignment" x="-3041" y="-493">Z0_Flag = 0</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id11"/>
+			<label kind="assignment" x="-2523" y="-544">Z_Flag = 1</label>
+			<nail x="-2558" y="-510"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-2523" y="-561">Z3_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-2523" y="-586">Z2_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-2523" y="-612">Z1_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id18"/>
+			<label kind="assignment" x="-1062" y="-340">Z_Flag = 1</label>
+			<nail x="-1045" y="-340"/>
+			<nail x="-1045" y="-399"/>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="-1181" y="-382">Z2_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="-1181" y="-365">Z3_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="-1181" y="-399">Z1_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id20"/>
+			<label kind="assignment" x="-1368" y="-340">Z_Flag = 1</label>
+			<nail x="-1351" y="-340"/>
+			<nail x="-1351" y="-399"/>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-1479" y="-391">Z1_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-1479" y="-357">Z3_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-1479" y="-374">Z2_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id22"/>
+			<label kind="assignment" x="-1666" y="-331">Z_Flag = 1</label>
+			<nail x="-1657" y="-331"/>
+			<nail x="-1657" y="-391"/>
+			<nail x="-1649" y="-416"/>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="-1776" y="-357">Z3_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="-1776" y="-374">Z2_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="-1776" y="-391">Z1_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id16"/>
+			<label kind="assignment" x="-1929" y="-544">Z_Flag = 1</label>
+			<nail x="-1955" y="-510"/>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-1929" y="-646">Z0_reached?</label>
+			<label kind="assignment" x="-1929" y="-629">Z0_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-1928" y="-612">Z1_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-1928" y="-561">Z3_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-1929" y="-587">Z2_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id23"/>
+			<label kind="synchronisation" x="-1895" y="-510">S_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="-1630" y="-450">T1_reached?</label>
+			<nail x="-1521" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id23"/>
+			<target ref="id22"/>
+			<label kind="guard" x="-1768" y="-450">T1_holds == 0</label>
+			<nail x="-1776" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id17"/>
+			<label kind="synchronisation" x="-1019" y="-450">T3_reached?</label>
+			<nail x="-909" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id18"/>
+			<label kind="guard" x="-1182" y="-450">T3_holds == 0</label>
+			<nail x="-1190" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id19"/>
+			<label kind="synchronisation" x="-1325" y="-450">T2_reached?</label>
+			<nail x="-1207" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id21"/>
+			<target ref="id20"/>
+			<label kind="guard" x="-1487" y="-450">T2_holds == 0</label>
+			<nail x="-1504" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id17"/>
+			<label kind="guard" x="-1182" y="-510">T3_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id21"/>
+			<target ref="id19"/>
+			<label kind="guard" x="-1487" y="-510">T2_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id23"/>
+			<target ref="id21"/>
+			<label kind="guard" x="-1759" y="-510">T1_holds == 1</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = PrecedenceChainConstrainedN1_State_Until_Untimed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>START --&gt; GOAL
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, S_reached, P_reached;</declaration>
+	<template>
+		<name x="5" y="5">Response_State_Before_Untimed</name>
+		<location id="id0" x="110" y="-178">
+			<name x="100" y="-212">ERROR</name>
+		</location>
+		<location id="id1" x="-195" y="-68">
+		</location>
+		<location id="id2" x="-25" y="-178">
+		</location>
+		<location id="id3" x="-195" y="-178">
+			<name x="-205" y="-212">INIT</name>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-187" y="-110">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="0" y="-195">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-144" y="-153">S_reached?</label>
+			<nail x="-51" y="-136"/>
+			<nail x="-161" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-144" y="-195">P_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Response_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

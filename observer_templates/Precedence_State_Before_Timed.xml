@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, S_reached, P_reached;
+
+int t1, t2;</declaration>
+	<template>
+		<name x="5" y="5">Precedence_State_Before_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-1836" y="-2040">
+		</location>
+		<location id="id1" x="-1997" y="-2040">
+		</location>
+		<location id="id2" x="-1836" y="-1938">
+			<name x="-1811" y="-1946">ERROR</name>
+		</location>
+		<location id="id3" x="-1997" y="-1938">
+		</location>
+		<location id="id4" x="-2176" y="-1938">
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1946" y="-2057">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-2108" y="-2023">c &gt; t2</label>
+			<label kind="synchronisation" x="-2108" y="-2006">P_reached?</label>
+			<nail x="-2031" y="-2014"/>
+			<nail x="-2031" y="-1972"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-1963" y="-2023">c &lt; t1</label>
+			<label kind="synchronisation" x="-1963" y="-2006">P_reached?</label>
+			<nail x="-1963" y="-2014"/>
+			<nail x="-1963" y="-1972"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-2167" y="-2074">S_reached?</label>
+			<label kind="assignment" x="-2167" y="-2057">c=0</label>
+			<nail x="-2176" y="-2040"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1946" y="-1955">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-2158" y="-1955">P_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here
+Observer = Precedence_State_Before_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

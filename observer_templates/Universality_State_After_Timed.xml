@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>broadcast chan Q_reached;
+broadcast chan P_left;
+int t1, t2;
+
+</declaration>
+	<template>
+		<name x="5" y="5">Universality_State_After_Timed</name>
+		<declaration>clock c;</declaration>
+		<location id="id0" x="85" y="17">
+			<name x="60" y="34">ERROR</name>
+		</location>
+		<location id="id1" x="-68" y="17">
+			<name x="-119" y="34">SCOPEOPEN</name>
+		</location>
+		<location id="id2" x="-195" y="17">
+			<name x="-212" y="34">INIT</name>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-59" y="-17">c &gt;= t1 and c &lt;= t2</label>
+			<label kind="synchronisation" x="-17" y="0">P_left?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-170" y="-17">Q_reached?</label>
+			<label kind="assignment" x="-153" y="0">c = 0</label>
+		</transition>
+	</template>
+	<system>Observer = Universality_State_After_Timed();
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] ( Observer.SCOPEOPEN and Observer.c == $t1 ) imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

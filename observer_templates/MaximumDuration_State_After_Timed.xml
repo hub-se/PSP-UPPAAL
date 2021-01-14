@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, Q_reached;</declaration>
+	<template>
+		<name x="5" y="5">MaximumDuration_State_After_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-255" y="0">
+		</location>
+		<location id="id1" x="-136" y="0">
+		</location>
+		<location id="id2" x="0" y="0">
+			<name x="-34" y="17">Scope</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-237" y="-17">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-118" y="-17">P_reached?</label>
+			<label kind="assignment" x="-118" y="0">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="68" y="-25">P_reached?</label>
+			<label kind="assignment" x="68" y="-8">c = 0</label>
+			<nail x="25" y="34"/>
+			<nail x="59" y="34"/>
+			<nail x="59" y="-25"/>
+			<nail x="25" y="-25"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = MaximumDuration_State_After_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] (Observer.Scope and Observer.c &gt;= $t1) imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

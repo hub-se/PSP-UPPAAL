@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+bool R_holds, P_holds;
+broadcast chan Q_reached, R_reached, P_reached, P_left;</declaration>
+	<template>
+		<name x="5" y="5">Universality_State_Until_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-450" y="-187">
+			<committed/>
+		</location>
+		<location id="id1" x="-289" y="-272">
+		</location>
+		<location id="id2" x="-153" y="-187">
+			<name x="-178" y="-170">ERROR</name>
+		</location>
+		<location id="id3" x="-289" y="-187">
+			<committed/>
+		</location>
+		<location id="id4" x="-578" y="-187">
+			<name x="-620" y="-212">INIT</name>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-561" y="-170">R_holds == 1</label>
+			<nail x="-458" y="-153"/>
+			<nail x="-569" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-425" y="-212">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-560" y="-204">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-263" y="-298">P_left?</label>
+			<nail x="-153" y="-272"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-450" y="-298">R_reached?</label>
+			<nail x="-578" y="-272"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-391" y="-255">P_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-272" y="-212">P_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-561" y="-144">R_reached?</label>
+			<nail x="-289" y="-144"/>
+			<nail x="-578" y="-144"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Universality_State_Until_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Observer.INIT imply not $Q
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+bool P_holds;
+broadcast chan P_entered;
+int t1, t2;</declaration>
+	<template>
+		<name x="5" y="5">Absence_State_Globally_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="34" y="-93">
+			<name x="24" y="-127">ERROR</name>
+		</location>
+		<location id="id1" x="-314" y="-93">
+			<name x="-324" y="-127">INIT</name>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-272" y="-119">c &gt;= t1 and c &lt;= t2 and P_holds == 1</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here
+Observer = Absence_State_Globally_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

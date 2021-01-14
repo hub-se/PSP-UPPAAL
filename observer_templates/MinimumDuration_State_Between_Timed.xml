@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, P_left, Q_reached, R_reached;
+bool R_holds;
+int t1;</declaration>
+	<template>
+		<name x="5" y="5">MinimumDuration_State_Between_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+</declaration>
+		<location id="id0" x="255" y="0">
+			<name x="264" y="8">ERROR</name>
+		</location>
+		<location id="id1" x="136" y="0">
+		</location>
+		<location id="id2" x="-281" y="0">
+			<committed/>
+		</location>
+		<location id="id3" x="-417" y="0">
+		</location>
+		<location id="id4" x="-153" y="0">
+		</location>
+		<location id="id5" x="0" y="0">
+			<name x="8" y="8">State</name>
+			<label kind="invariant" x="8" y="25">c &lt;= t1</label>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="154" y="-17">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id1"/>
+			<label kind="guard" x="59" y="-34">c &lt; t1</label>
+			<label kind="synchronisation" x="59" y="-17">P_left?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-127" y="8">c == t1</label>
+			<nail x="-25" y="25"/>
+			<nail x="-136" y="25"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-399" y="68">R_reached?</label>
+			<nail x="0" y="85"/>
+			<nail x="-434" y="85"/>
+			<nail x="-434" y="17"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-399" y="51">R_reached?</label>
+			<nail x="-153" y="68"/>
+			<nail x="-417" y="68"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-400" y="8">R_holds == 1</label>
+			<nail x="-290" y="25"/>
+			<nail x="-400" y="25"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-264" y="-17">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-399" y="-17">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-127" y="-34">P_reached?</label>
+			<label kind="assignment" x="-127" y="-17">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-25" y="-102">P_reached?</label>
+			<label kind="assignment" x="-25" y="-85">c = 0</label>
+			<nail x="-34" y="-17"/>
+			<nail x="-34" y="-68"/>
+			<nail x="34" y="-68"/>
+			<nail x="34" y="-17"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = MinimumDuration_State_Between_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+	</queries>
+</nta>

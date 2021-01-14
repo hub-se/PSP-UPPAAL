@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, S_reached, P_reached;</declaration>
+	<template>
+		<name x="5" y="5">Precedence_State_Before_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-799" y="-459">
+			<name x="-809" y="-493">ERROR</name>
+		</location>
+		<location id="id1" x="-926" y="-459">
+		</location>
+		<location id="id2" x="-926" y="-510">
+		</location>
+		<location id="id3" x="-1096" y="-510">
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-908" y="-433">S_reached?</label>
+			<nail x="-926" y="-416"/>
+			<nail x="-799" y="-416"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-908" y="-476">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1078" y="-586">R_reached?</label>
+			<nail x="-1096" y="-569"/>
+			<nail x="-926" y="-569"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1079" y="-476">P_reached?</label>
+			<nail x="-1096" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1079" y="-535">S_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Precedence_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

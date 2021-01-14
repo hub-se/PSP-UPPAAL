@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, P_left, R_reached;
+int t1;</declaration>
+	<template>
+		<name x="5" y="5">Recurrence_State_Before_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+</declaration>
+		<location id="id0" x="-799" y="-535">
+			<name x="-807" y="-569">SCOPECLOSED</name>
+		</location>
+		<location id="id1" x="-799" y="-603">
+			<name x="-809" y="-637">ERROR</name>
+		</location>
+		<location id="id2" x="-935" y="-603">
+		</location>
+		<location id="id3" x="-935" y="-535">
+		</location>
+		<location id="id4" x="-1190" y="-535">
+			<label kind="invariant" x="-1241" y="-561">c &lt;= t1</label>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-918" y="-620">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-918" y="-552">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1164" y="-476">R_reached?</label>
+			<nail x="-1198" y="-510"/>
+			<nail x="-1198" y="-459"/>
+			<nail x="-799" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-1156" y="-620">c &gt;= t1</label>
+			<nail x="-1190" y="-603"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-1164" y="-518">P_left?</label>
+			<label kind="assignment" x="-1164" y="-501">c = 0</label>
+			<nail x="-935" y="-501"/>
+			<nail x="-1190" y="-501"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1164" y="-552">P_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Recurrence_State_Before_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

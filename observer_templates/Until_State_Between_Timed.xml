@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, S_reached, P_left, S_left;
+bool R_holds, P_holds, S_holds;
+int t1, t2;</declaration>
+	<template>
+		<name x="5" y="5">Until_State_Between_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-654" y="-518">
+			<name x="-664" y="-552">ERROR</name>
+		</location>
+		<location id="id1" x="-867" y="-518">
+		</location>
+		<location id="id2" x="-1130" y="-357">
+		</location>
+		<location id="id3" x="-1130" y="-688">
+		</location>
+		<location id="id4" x="-1334" y="-518">
+		</location>
+		<location id="id5" x="-1496" y="-518">
+		</location>
+		<location id="id6" x="-1632" y="-518">
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-1071" y="-637">P_holds == 1</label>
+			<label kind="synchronisation" x="-1071" y="-620">S_left?</label>
+			<nail x="-1011" y="-518"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-1003" y="-705">P_holds == 0 and
+c &lt; t1</label>
+			<label kind="synchronisation" x="-1003" y="-722">S_left?</label>
+			<nail x="-867" y="-688"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1011" y="-374">P_left?</label>
+			<nail x="-875" y="-357"/>
+			<nail x="-875" y="-493"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-799" y="-535">c &gt;= t1</label>
+			<label kind="synchronisation" x="-799" y="-552">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1207" y="-459">S_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-1640" y="-280">c &lt; t1</label>
+			<label kind="synchronisation" x="-1640" y="-297">R_reached?</label>
+			<nail x="-867" y="-272"/>
+			<nail x="-1674" y="-280"/>
+			<nail x="-1674" y="-518"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-1640" y="-331">c &lt; t1</label>
+			<label kind="synchronisation" x="-1639" y="-348">R_reached?</label>
+			<nail x="-1130" y="-331"/>
+			<nail x="-1657" y="-331"/>
+			<nail x="-1657" y="-501"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-1614" y="-705">R_reached?</label>
+			<nail x="-1632" y="-688"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-1326" y="-671">S_holds == 1</label>
+			<nail x="-1334" y="-671"/>
+			<nail x="-1156" y="-671"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-1316" y="-391">P_holds == 1 and
+S_holds == 0</label>
+			<nail x="-1334" y="-357"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-1283" y="-535">P_holds == 0 and
+S_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-1615" y="-476">R_holds == 1</label>
+			<nail x="-1496" y="-459"/>
+			<nail x="-1632" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-1462" y="-535">R_holds == 0</label>
+			<label kind="assignment" x="-1462" y="-518">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-1614" y="-535">Q_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Until_State_Between_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

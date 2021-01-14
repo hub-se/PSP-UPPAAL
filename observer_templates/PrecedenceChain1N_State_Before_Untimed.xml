@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, S_reached, T1_reached, T2_reached, T3_reached, P_reached;
+bool T1_holds, T2_holds, T3_holds;</declaration>
+	<template>
+		<name x="5" y="5">PrecedenceChain_State_Before_Untimed</name>
+		<declaration>// Place local declarations here.
+bool Z_Flag = 0;
+bool P_Flag = 0;
+bool R_Flag = 0;
+</declaration>
+		<location id="id0" x="-782" y="-493">
+			<name x="-792" y="-527">EVALUATE</name>
+		</location>
+		<location id="id1" x="-960" y="-340">
+			<committed/>
+		</location>
+		<location id="id2" x="-1292" y="-340">
+			<committed/>
+		</location>
+		<location id="id3" x="-1581" y="-331">
+			<committed/>
+		</location>
+		<location id="id4" x="-1997" y="-331">
+			<committed/>
+		</location>
+		<location id="id5" x="-1929" y="-331">
+			<committed/>
+		</location>
+		<location id="id6" x="-1929" y="-493">
+			<name x="-1921" y="-527">INIT</name>
+		</location>
+		<location id="id7" x="-909" y="-493">
+			<name x="-919" y="-527">END</name>
+		</location>
+		<location id="id8" x="-1037" y="-433">
+		</location>
+		<location id="id9" x="-1207" y="-493">
+			<committed/>
+		</location>
+		<location id="id10" x="-1343" y="-433">
+		</location>
+		<location id="id11" x="-1521" y="-493">
+			<committed/>
+		</location>
+		<location id="id12" x="-1648" y="-434">
+		</location>
+		<location id="id13" x="-1776" y="-493">
+			<committed/>
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-891" y="-510">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id8"/>
+			<nail x="-1003" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-977" y="-399">R_reached?</label>
+			<label kind="assignment" x="-977" y="-382">R_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id10"/>
+			<nail x="-1317" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1300" y="-399">R_reached?</label>
+			<label kind="assignment" x="-1300" y="-382">R_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id12"/>
+			<nail x="-1615" y="-331"/>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1606" y="-399">R_reached?</label>
+			<label kind="assignment" x="-1606" y="-382">R_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id6"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-2057" y="-459">R_reached?</label>
+			<label kind="assignment" x="-2057" y="-442">R_Flag = 1</label>
+			<nail x="-1955" y="-476"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<nail x="-1938" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-1929" y="-429">P_reached?</label>
+			<label kind="assignment" x="-1929" y="-412">P_Flag = 1</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-1895" y="-510">S_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-1630" y="-450">T1_reached?</label>
+			<nail x="-1521" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id12"/>
+			<label kind="guard" x="-1768" y="-450">T1_holds == 0</label>
+			<nail x="-1776" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-1019" y="-450">T3_reached?</label>
+			<nail x="-909" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-1182" y="-450">T3_holds == 0</label>
+			<nail x="-1190" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-1325" y="-450">T2_reached?</label>
+			<nail x="-1207" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-1487" y="-450">T2_holds == 0</label>
+			<nail x="-1504" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-1182" y="-510">T3_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-1487" y="-510">T2_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id11"/>
+			<label kind="guard" x="-1759" y="-510">T1_holds == 1</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = PrecedenceChain_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>START --&gt; GOAL
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

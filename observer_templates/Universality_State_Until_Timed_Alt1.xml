@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>broadcast chan Q_reached, R_reached;
+broadcast chan P_left;
+bool R_holds;
+int t1, t2;</declaration>
+	<template>
+		<name x="5" y="5">Universality_State_Until_Timed</name>
+		<declaration>clock c;</declaration>
+		<location id="id0" x="-510" y="-221">
+			<committed/>
+		</location>
+		<location id="id1" x="-119" y="-221">
+			<name x="-144" y="-255">INTERVALCLOSED</name>
+		</location>
+		<location id="id2" x="-229" y="-221">
+			<name x="-272" y="-272">INTERVALOPEN</name>
+			<label kind="invariant" x="-254" y="-255">c &lt;= t2</label>
+		</location>
+		<location id="id3" x="-349" y="-221">
+			<name x="-382" y="-272">SCOPEOPEN</name>
+			<label kind="invariant" x="-365" y="-255">c &lt;= t1</label>
+		</location>
+		<location id="id4" x="-654" y="-221">
+			<name x="-697" y="-255">INIT</name>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-637" y="-289">R_holds == 1</label>
+			<nail x="-510" y="-263"/>
+			<nail x="-654" y="-263"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-493" y="-238">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-629" y="-238">Q_reached?</label>
+			<label kind="assignment" x="-603" y="-221">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-212" y="-119">R_reached?</label>
+			<nail x="-119" y="-93"/>
+			<nail x="-679" y="-93"/>
+			<nail x="-679" y="-178"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-323" y="-153">R_reached?</label>
+			<nail x="-229" y="-127"/>
+			<nail x="-654" y="-127"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-195" y="-221">c == t2</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-535" y="-195">R_reached?</label>
+			<nail x="-348" y="-178"/>
+			<nail x="-637" y="-178"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-314" y="-221">c == t1</label>
+		</transition>
+	</template>
+	<system>Observer = Universality_State_Until_Timed();
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.INTERVALOPEN imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Observer.INIT imply not $Q
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

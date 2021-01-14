@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, P_left, R_reached;
+int t2;</declaration>
+	<template>
+		<name x="5" y="5">MaximumDuration_State_Before_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+</declaration>
+		<location id="id0" x="-161" y="-93">
+		</location>
+		<location id="id1" x="119" y="-178">
+			<name x="109" y="-212">ERROR</name>
+		</location>
+		<location id="id2" x="-17" y="-178">
+		</location>
+		<location id="id3" x="-161" y="-178">
+			<label kind="invariant" x="-178" y="-161">c &lt;= t1</label>
+		</location>
+		<location id="id4" x="-289" y="-178">
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-280" y="-110">R_reached?</label>
+			<nail x="-289" y="-93"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-255" y="-153">P_left?</label>
+			<nail x="-187" y="-153"/>
+			<nail x="-263" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="1" y="-195">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-68" y="-161">R_reached?</label>
+			<nail x="-127" y="-161"/>
+			<nail x="102" y="-161"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-187" y="-272">P_reached?</label>
+			<label kind="assignment" x="-178" y="-246">c = 0</label>
+			<nail x="-187" y="-195"/>
+			<nail x="-187" y="-246"/>
+			<nail x="-127" y="-246"/>
+			<nail x="-127" y="-195"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-119" y="-195">c &gt;= t1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-271" y="-195">P_reached?</label>
+			<label kind="assignment" x="-271" y="-178">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = MaximumDuration_State_Before_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_left, S_reached;</declaration>
+	<template>
+		<name x="5" y="5">Until_State_Globally_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-1020" y="-833">
+			<name x="-1030" y="-867">O1</name>
+		</location>
+		<location id="id1" x="-1020" y="-892">
+			<name x="-1030" y="-926">ERROR</name>
+		</location>
+		<location id="id2" x="-1147" y="-892">
+			<name x="-1157" y="-926">INIT</name>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1129" y="-850">S_reached?</label>
+			<nail x="-1147" y="-833"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1122" y="-909">P_left?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Until_State_Globally_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>Observer.INIT --&gt; Observer.O1
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Observer.INIT imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

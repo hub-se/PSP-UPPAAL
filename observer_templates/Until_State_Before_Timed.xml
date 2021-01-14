@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_left, S_reached, R_reached;
+int t1, t2;</declaration>
+	<template>
+		<name x="5" y="5">Until_State_Before_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-1215" y="-1181">
+			<name x="-1207" y="-1207">O1</name>
+		</location>
+		<location id="id1" x="-1215" y="-1275">
+			<name x="-1206" y="-1309">ERROR</name>
+		</location>
+		<location id="id2" x="-1334" y="-1275">
+			<name x="-1344" y="-1309">INIT</name>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1309" y="-1232">R_reached?</label>
+			<nail x="-1317" y="-1249"/>
+			<nail x="-1317" y="-1215"/>
+			<nail x="-1215" y="-1215"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-1317" y="-1181">c &lt;= t2 &amp;&amp;
+c &gt;= t1</label>
+			<label kind="synchronisation" x="-1317" y="-1198">S_reached?</label>
+			<nail x="-1334" y="-1181"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1316" y="-1292">P_left?</label>
+		</transition>
+	</template>
+	<system>
+Observer = Until_State_Before_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.INIT imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Observer.INIT --&gt; Observer.O1
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_entered, S_entered;</declaration>
+	<template>
+		<name x="5" y="5">ResponseConstrained_State_Globally_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="170" y="-8">
+			<name x="160" y="-42">P_happens</name>
+		</location>
+		<location id="id1" x="0" y="-8">
+			<name x="-10" y="-42">S_happens</name>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="59" y="76">S_entered?</label>
+			<nail x="93" y="76"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="18" y="-25">P_entered?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = ResponseConstrained_State_Globally_Untimed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>P_happens--&gt;S_happens
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

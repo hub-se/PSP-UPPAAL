@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+
+broadcast chan Q_reached, R_reached, P_reached;
+bool R_holds, P_holds;</declaration>
+	<template>
+		<name x="5" y="5">Existence_State_Until_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-425" y="-187">
+			<committed/>
+		</location>
+		<location id="id1" x="-289" y="-306">
+			<name x="-306" y="-348">FULFILLED</name>
+		</location>
+		<location id="id2" x="-17" y="-187">
+			<name x="-26" y="-170">ERROR</name>
+		</location>
+		<location id="id3" x="-153" y="-187">
+		</location>
+		<location id="id4" x="-289" y="-187">
+			<name x="-289" y="-170">SCOPEOPEN</name>
+			<committed/>
+		</location>
+		<location id="id5" x="-578" y="-187">
+			<name x="-620" y="-187">INIT</name>
+		</location>
+		<init ref="id5"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-544" y="-161">R_holds ==1</label>
+			<nail x="-442" y="-144"/>
+			<nail x="-552" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-408" y="-204">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-560" y="-204">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-263" y="-331">P_reached?</label>
+			<nail x="-153" y="-306"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-552" y="-323">R_reached?</label>
+			<nail x="-578" y="-306"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-391" y="-280">P_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-127" y="-212">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-272" y="-212">P_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-484" y="-127">R_reached?</label>
+			<nail x="-306" y="-110"/>
+			<nail x="-561" y="-110"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Existence_State_Until_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.INIT imply not $Q
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>SCOPEOPEN --&gt; FULFILLED
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

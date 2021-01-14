@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, P_left, Q_reached;</declaration>
+	<template>
+		<name x="5" y="5">Recurrence_State_After_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-1844" y="-1887">
+		</location>
+		<location id="id1" x="-1572" y="-1887">
+			<name x="-1582" y="-1921">GOAL</name>
+		</location>
+		<location id="id2" x="-1699" y="-1887">
+			<name x="-1733" y="-1921">START</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1826" y="-1904">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1665" y="-1828">P_left?</label>
+			<nail x="-1640" y="-1828"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1674" y="-1913">P_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Recurrence_State_After_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>Observer.START --&gt; Observer.GOAL
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

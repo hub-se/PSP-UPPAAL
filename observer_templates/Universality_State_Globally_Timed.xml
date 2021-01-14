@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+
+broadcast chan P_left; </declaration>
+	<template>
+		<name x="5" y="5">Universality_State_Globally_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+int t1 = 2;
+int t2 = 5;</declaration>
+		<location id="id0" x="-93" y="-93">
+			<name x="-103" y="-127">ERROR</name>
+		</location>
+		<location id="id1" x="-314" y="-93">
+			<name x="-324" y="-127">INIT</name>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-272" y="-136">c &gt;= t1 and c &lt;= t2</label>
+			<label kind="synchronisation" x="-246" y="-119">P_left?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+obs = Universality_State_Globally_Timed();
+// List one or more processes to be composed into a system.
+system obs;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] (INIT and c == t1) imply not P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not obs.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

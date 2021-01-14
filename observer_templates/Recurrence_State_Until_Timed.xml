@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, P_entered, P_left;
+bool P_holds, R_holds;
+int t1;</declaration>
+	<template>
+		<name x="5" y="5">Recurrence_State_Until_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-934" y="-340">
+			<committed/>
+		</location>
+		<location id="id1" x="-790" y="-340">
+			<committed/>
+		</location>
+		<location id="id2" x="-1070" y="-340">
+		</location>
+		<location id="id3" x="-365" y="-340">
+			<name x="-375" y="-374">ERROR</name>
+		</location>
+		<location id="id4" x="-637" y="-340">
+		</location>
+		<location id="id5" x="-518" y="-340">
+			<label kind="invariant" x="-510" y="-374">c &lt;= t1</label>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-917" y="-357">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-1053" y="-314">R_holds == 1</label>
+			<nail x="-934" y="-297"/>
+			<nail x="-1070" y="-297"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1053" y="-357">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-764" y="-314">P_holds == 0</label>
+			<label kind="assignment" x="-764" y="-297">c = 0</label>
+			<nail x="-790" y="-297"/>
+			<nail x="-518" y="-297"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-764" y="-357">P_holds == 1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1053" y="-408">R_reached?</label>
+			<nail x="-662" y="-391"/>
+			<nail x="-1070" y="-391"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1053" y="-450">R_reached?</label>
+			<nail x="-518" y="-433"/>
+			<nail x="-1096" y="-433"/>
+			<nail x="-1096" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-442" y="-357">c &gt;= t1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-611" y="-357">P_left?</label>
+			<label kind="assignment" x="-611" y="-340">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-595" y="-416">P_entered?</label>
+			<nail x="-535" y="-391"/>
+			<nail x="-637" y="-391"/>
+		</transition>
+	</template>
+	<system>
+
+Observer = Recurrence_State_Until_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

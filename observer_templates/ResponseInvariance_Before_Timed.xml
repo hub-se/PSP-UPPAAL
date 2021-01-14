@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan S_left, P_reached, R_reached;
+bool S_holds;</declaration>
+	<template>
+		<name x="5" y="5">ResponseInvariance_State_Before_Timed</name>
+		<declaration>// Place local declarations here.
+int l = 3;
+int u = 5;
+clock c;</declaration>
+		<location id="id0" x="-170" y="-221">
+			<label kind="invariant" x="-187" y="-204">c &lt;= l</label>
+		</location>
+		<location id="id1" x="51" y="-178">
+		</location>
+		<location id="id2" x="-170" y="-127">
+		</location>
+		<location id="id3" x="221" y="-178">
+			<name x="211" y="-212">ERROR</name>
+		</location>
+		<location id="id4" x="51" y="-280">
+		</location>
+		<location id="id5" x="-76" y="-221">
+			<committed/>
+		</location>
+		<location id="id6" x="-306" y="-221">
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-144" y="-238">c == l</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-288" y="-238">P_reached?</label>
+			<label kind="assignment" x="-288" y="-221">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="guard" x="51" y="-229">c &lt; u</label>
+			<label kind="synchronisation" x="51" y="-246">S_left?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="119" y="-195">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-68" y="-187">S_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-288" y="-144">R_reached?</label>
+			<nail x="-306" y="-127"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-68" y="-289">S_holds == 1</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = ResponseInvariance_State_Before_Timed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+	</queries>
+</nta>

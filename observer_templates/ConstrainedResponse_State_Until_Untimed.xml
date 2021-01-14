@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, P_entered, S_entered, T_reached;
+bool R_holds;</declaration>
+	<template>
+		<name x="5" y="5">ConstrainedResponse_State_Until_Untimed</name>
+		<declaration>// Place local declarations here.
+clock c;
+int l = 3;
+int u = 5;</declaration>
+		<location id="id0" x="-323" y="-178">
+			<committed/>
+		</location>
+		<location id="id1" x="127" y="-178">
+			<name x="102" y="-212">ERROR</name>
+		</location>
+		<location id="id2" x="-459" y="-178">
+		</location>
+		<location id="id3" x="-25" y="-178">
+			<name x="-68" y="-212">P_happens</name>
+			<label kind="comments" x="-35" y="-119">What if T holds initally?</label>
+		</location>
+		<location id="id4" x="-195" y="-178">
+			<name x="-246" y="-161">S_happens</name>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-7" y="-161">R_reached?</label>
+			<nail x="-25" y="-144"/>
+			<nail x="127" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-442" y="-153">R_holds == 1</label>
+			<nail x="-340" y="-153"/>
+			<nail x="-442" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-306" y="-195">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-441" y="-195">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-7" y="-195">T_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-374" y="-263">R_reached?</label>
+			<nail x="-195" y="-238"/>
+			<nail x="-459" y="-238"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-136" y="-94">S_entered?</label>
+			<nail x="-102" y="-94"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-177" y="-195">P_entered?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = ConstrainedResponse_State_Until_Untimed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>P_happens --&gt; S_happens
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

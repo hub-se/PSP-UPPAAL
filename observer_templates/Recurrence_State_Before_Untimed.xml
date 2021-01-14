@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, P_reached, P_left;</declaration>
+	<template>
+		<name x="5" y="5">Recurrence_State_Before_Untimed</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-1223" y="-850">
+			<name x="-1232" y="-824">GOAL2</name>
+		</location>
+		<location id="id1" x="-909" y="-986">
+		</location>
+		<location id="id2" x="-1096" y="-986">
+			<name x="-1096" y="-1020">GOAL</name>
+		</location>
+		<location id="id3" x="-1223" y="-986">
+			<name x="-1266" y="-1020">START</name>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-1317" y="-884">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1019" y="-1012">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1189" y="-927">P_left?</label>
+			<nail x="-1164" y="-927"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1198" y="-1012">P_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Recurrence_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>Start --&gt; (Observer.GOAL or Observer.GOAL2)
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

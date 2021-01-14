@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan Q_reached, S_reached, P_reached;</declaration>
+	<template>
+		<name x="5" y="5">Precedence_State_After_Untimed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-1275" y="-561">
+		</location>
+		<location id="id1" x="-926" y="-459">
+			<name x="-936" y="-493">ERROR</name>
+		</location>
+		<location id="id2" x="-926" y="-561">
+		</location>
+		<location id="id3" x="-1096" y="-561">
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1249" y="-586">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1079" y="-476">P_reached?</label>
+			<nail x="-1096" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1079" y="-586">S_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Precedence_State_After_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+	</queries>
+</nta>
