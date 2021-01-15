@@ -1,4 +1,4 @@
-# Property Specification Patterns for UPPAAL (PSP-UPPAAL)
+# Property Specification Patterns for UPPAAL
 
 Specifying properties in a temporal logic is typically difficult and error-prone, even for experts in formal methods. To ease the specification of properties, specification patterns for qualitative [1], real-time [2] and probabilistic [3] properties have been proposed and eventually [aligned](http://ps-patterns.wikidot.com/) [4] in literature. However, they are not connected to existing model checkers and therefore not used in practice---despite their benefits of easing the specification.
 
@@ -12,7 +12,7 @@ The result of this project is a **catalog of specification patterns for UPPAAL**
 * [Lars Grunske](https://github.com/larsgrunske)
 
 ## Acknowledgement
-This work has been developed as part of the project [_Safe.Spec: Quality Assurance of Behavioral Requirements_](https://www.informatik.hu-berlin.de/en/forschung-en/gebiete/se/research/ongoingprojects/safespec/safespec) funded by the German Federal Ministry of Education and Research under Grant No. 01IS16027. 
+This work has been developed as part of the project [_Safe.Spec: Quality Assurance of Behavioral Requirements_](https://www.informatik.hu-berlin.de/en/forschung-en/gebiete/se/research/ongoingprojects/safespec/safespec) funded by the German Federal Ministry of Education and Research under Grant No. 01IS16027.
 
 ## References
 
