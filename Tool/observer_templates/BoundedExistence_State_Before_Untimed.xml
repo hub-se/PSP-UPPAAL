@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, P_left, R_reached;
+bool P_holds;
+int n_;
+bool nxtCmt = 1;</declaration>
+	<template>
+		<name x="5" y="5">BoundedExistence_State_Before_Untimed</name>
+		<declaration>// Place local declarations here.
+int counter = 0;</declaration>
+		<location id="id0" x="229" y="-340">
+			<name x="246" y="-348">ERROR</name>
+		</location>
+		<location id="id1" x="-161" y="-272">
+		</location>
+		<location id="id2" x="110" y="-340">
+		</location>
+		<location id="id3" x="-59" y="-340">
+			<committed/>
+		</location>
+		<location id="id4" x="-459" y="-204">
+			<committed/>
+		</location>
+		<location id="id5" x="-272" y="-340">
+		</location>
+		<location id="id6" x="-272" y="-204">
+		</location>
+		<location id="id7" x="-595" y="-204">
+			<name x="-605" y="-238">INIT</name>
+			<committed/>
+		</location>
+		<init ref="id7"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="127" y="-365">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-187" y="-306">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-187" y="-255">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-17" y="-365">counter &gt; n_</label>
+			<label kind="assignment" x="-17" y="-340">nxtCmt=0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-204" y="-365">counter &lt;= n_</label>
+			<label kind="assignment" x="-212" y="-340">nxtCmt=0</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-51" y="-255">P_reached?</label>
+			<label kind="assignment" x="-51" y="-238">counter = counter+1,
+nxtCmt=1</label>
+			<nail x="-59" y="-204"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-433" y="-374">P_holds == 1</label>
+			<label kind="assignment" x="-459" y="-357">counter = counter+1,
+nxtCmt=0</label>
+			<nail x="-459" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-416" y="-229">P_holds == 0</label>
+			<label kind="assignment" x="-416" y="-204">nxtCmt=0</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id4"/>
+			<label kind="assignment" x="-569" y="-221">counter = 0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-323" y="-289">P_left?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = BoundedExistence_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.INIT imply not $R
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached;</declaration>
+	<template>
+		<name x="5" y="5">ResponseInvariance_State_Globally_Timed</name>
+		<declaration>// Place local declarations here.
+int l = 3;
+int u = 5;
+clock c;</declaration>
+		<location id="id0" x="-85" y="-221">
+			<name x="-95" y="-255">waiting</name>
+		</location>
+		<location id="id1" x="-212" y="-221">
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-194" y="-238">P_reached?</label>
+			<label kind="assignment" x="-194" y="-221">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = ResponseInvariance_State_Globally_Timed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] (Observer.waiting AND $t1 &lt; c AND c &lt; $t2) imply $S
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

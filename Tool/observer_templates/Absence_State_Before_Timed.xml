@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>broadcast chan R_reached, P_reached;
+bool P_holds, R_holds;
+int t1;
+int t2;
+bool nxtCmt = 1;</declaration>
+	<template>
+		<name x="5" y="5">Absence_State_Before_Timed</name>
+		<declaration>clock c;</declaration>
+		<location id="id0" x="-756" y="0">
+			<committed/>
+		</location>
+		<location id="id1" x="-620" y="0">
+			<label kind="invariant" x="-646" y="-42">c &lt;= t2</label>
+		</location>
+		<location id="id2" x="-476" y="0">
+		</location>
+		<location id="id3" x="-892" y="0">
+			<committed/>
+		</location>
+		<location id="id4" x="-348" y="0">
+			<name x="-357" y="17">ERROR</name>
+		</location>
+		<location id="id5" x="-620" y="144">
+		</location>
+		<location id="id6" x="-1003" y="0">
+			<label kind="invariant" x="-1029" y="17">c &lt;= t1</label>
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-875" y="178">P_holds == 1</label>
+			<label kind="assignment" x="-875" y="195">nxtCmt=0</label>
+			<nail x="-892" y="170"/>
+			<nail x="-476" y="170"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-544" y="76">c == t2</label>
+			<nail x="-552" y="25"/>
+			<nail x="-552" y="144"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-858" y="76">R_holds == 1</label>
+			<label kind="assignment" x="-738" y="144">nxtCmt=0</label>
+			<nail x="-756" y="144"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-739" y="-17">R_holds == 0</label>
+			<label kind="assignment" x="-738" y="0">nxtCmt=0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-875" y="-17">P_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-705" y="76">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-986" y="-93">R_reached?</label>
+			<nail x="-1003" y="-68"/>
+			<nail x="-348" y="-68"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-450" y="-17">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-586" y="-17">P_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-977" y="-17">c == t1</label>
+			<label kind="assignment" x="-985" y="0">nxtCmt=1</label>
+		</transition>
+	</template>
+	<system>Observer = Absence_State_Before_Timed();
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

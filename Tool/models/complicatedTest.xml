@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'flat-1_1.dtd'>
+<nta>
+	<declaration>// Place global declarations here.</declaration>
+	<template>
+		<name x="5" y="5">Template</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-25" y="-195">
+		</location>
+		<location id="id1" x="110" y="-42">
+		</location>
+		<location id="id2" x="-25" y="-136">
+		</location>
+		<location id="id3" x="110" y="-136">
+			<name x="134" y="-128">wait</name>
+		</location>
+		<location id="id4" x="-204" y="178">
+			<name x="-276" y="162">closing</name>
+			<label kind="invariant" x="-260" y="178">x&lt;=6</label>
+		</location>
+		<location id="id5" x="-204" y="34">
+			<name x="-180" y="18">closed</name>
+			<label kind="invariant" x="-180" y="34">x&lt;=5</label>
+		</location>
+		<location id="id6" x="110" y="178">
+			<name x="134" y="162">open</name>
+			<label kind="invariant" x="134" y="178">x&lt;=8</label>
+		</location>
+		<location id="id7" x="110" y="34">
+			<name x="134" y="18">opening</name>
+			<label kind="invariant" x="134" y="34">x&lt;=6</label>
+		</location>
+		<location id="id8" x="-204" y="-136">
+			<name x="-188" y="-128">idle</name>
+		</location>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="17" y="-195">closed1!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id7"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="110" y="-102">closed2?</label>
+			<label kind="assignment" x="110" y="-76">x = 0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-153" y="-170">pushed?</label>
+			<label kind="assignment" x="-153" y="-153">activated = true</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-276" y="2">closed1!</label>
+			<nail x="-244" y="58"/>
+			<nail x="-244" y="34"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-244" y="-80">x&gt;=5</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-260" y="74">x==6</label>
+			<label kind="assignment" x="-260" y="98">x=0,
+activated=false</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-284" y="-168">closed1!</label>
+			<nail x="-244" y="-112"/>
+			<nail x="-244" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-45" y="154">x&gt;=4</label>
+			<label kind="assignment" x="-37" y="186">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="guard" x="118" y="74">x==6</label>
+			<label kind="assignment" x="118" y="98">x=0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = Template();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+	</queries>
+</nta>

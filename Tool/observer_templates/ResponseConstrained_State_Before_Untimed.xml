@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, S_entered, P_entered;</declaration>
+	<template>
+		<name x="5" y="5">ConstrainedResponse_State_Before_Untimed</name>
+		<declaration>// Place local declarations here.
+clock c;
+int l = 3;
+int u = 5;</declaration>
+		<location id="id0" x="-110" y="-263">
+			<committed/>
+		</location>
+		<location id="id1" x="153" y="-263">
+		</location>
+		<location id="id2" x="153" y="-178">
+			<name x="119" y="-161">ERROR</name>
+		</location>
+		<location id="id3" x="-195" y="-93">
+		</location>
+		<location id="id4" x="-25" y="-178">
+		</location>
+		<location id="id5" x="-195" y="-178">
+		</location>
+		<init ref="id5"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-42" y="-280">ZS_holds == 1</label>
+			<label kind="assignment" x="-42" y="-263">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-170" y="-238">ZS_holds == 0</label>
+			<label kind="assignment" x="-161" y="-221">nxtCmt = 0</label>
+			<nail x="-110" y="-178"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-212" y="-297">P_entered?</label>
+			<label kind="assignment" x="-221" y="-280">nxtCmt = 1</label>
+			<nail x="-195" y="-263"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="76" y="-212">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-42" y="-229">ZS_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-195" y="-136">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="59" y="-178">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-153" y="-153">S_entered?</label>
+			<nail x="-110" y="-153"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = ConstrainedResponse_State_Before_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

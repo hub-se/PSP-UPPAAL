@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached;</declaration>
+	<template>
+		<name x="5" y="5">MaximumDuration_State_Globally_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-408" y="-170">
+		</location>
+		<location id="id1" x="-272" y="-170">
+			<name x="-255" y="-178">Scope</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-331" y="-136">P_left?</label>
+			<nail x="-272" y="-136"/>
+			<nail x="-399" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-382" y="-187">P_reached?</label>
+			<label kind="assignment" x="-382" y="-170">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = MaximumDuration_State_Globally_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] (Observer.Scope and Observer.c &gt;= $t1) imply not $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

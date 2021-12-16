@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, Q_reached;</declaration>
+	<template>
+		<name x="5" y="5">MinimumDuration_State_After_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="-255" y="0">
+		</location>
+		<location id="id1" x="-136" y="0">
+		</location>
+		<location id="id2" x="0" y="0">
+			<name x="-17" y="-34">Scope</name>
+			<label kind="invariant" x="25" y="-8">c &lt;= t1</label>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-93" y="34">c == t1</label>
+			<nail x="-17" y="34"/>
+			<nail x="-119" y="34"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-237" y="-17">Q_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-118" y="-17">P_reached?</label>
+			<label kind="assignment" x="-118" y="0">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = MinimumDuration_State_After_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.Scope imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

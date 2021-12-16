@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, P_entered, P_left;
+bool R_holds;
+bool P_holds;
+bool nxtCmt = 0;</declaration>
+	<template>
+		<name x="5" y="5">Recurrence_State_Between_Untimed</name>
+		<declaration>// Place local declarations here.
+</declaration>
+		<location id="id0" x="-5432" y="-5627">
+			<committed/>
+		</location>
+		<location id="id1" x="-5279" y="-5627">
+		</location>
+		<location id="id2" x="-5576" y="-5627">
+			<name x="-5602" y="-5661">INIT</name>
+		</location>
+		<location id="id3" x="-5151" y="-5627">
+			<name x="-5143" y="-5661">VALIDATION</name>
+			<committed/>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-5550" y="-5610">R_holds == 1</label>
+			<label kind="assignment" x="-5558" y="-5593">nxtCmt = 0</label>
+			<nail x="-5432" y="-5593"/>
+			<nail x="-5576" y="-5593"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-5406" y="-5644">R_holds == 0</label>
+			<label kind="assignment" x="-5414" y="-5627">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-5550" y="-5644">Q_reached?</label>
+			<label kind="assignment" x="-5558" y="-5627">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-5261" y="-5644">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<nail x="-5151" y="-5695"/>
+			<nail x="-5601" y="-5695"/>
+			<nail x="-5601" y="-5635"/>
+			<nail x="-5601" y="-5635"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Recurrence_State_Between_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.VALIDATION imply $P_holds
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

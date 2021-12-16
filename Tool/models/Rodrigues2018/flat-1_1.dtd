@@ -1,0 +1,38 @@
+<!ELEMENT nta (imports?, declaration?, template+, instantiation?, system)>
+<!ELEMENT imports (#PCDATA)>
+<!ELEMENT declaration (#PCDATA)>
+<!ELEMENT template (name, parameter?, declaration?, location*, init?, transition*)>
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name x   CDATA #IMPLIED
+               y   CDATA #IMPLIED>
+<!ELEMENT parameter (#PCDATA)>
+<!ATTLIST parameter x   CDATA #IMPLIED
+                    y   CDATA #IMPLIED>
+<!ELEMENT location (name?, label*, urgent?, committed?)>
+<!ATTLIST location id ID #REQUIRED
+		   x  CDATA #IMPLIED
+		   y  CDATA #IMPLIED
+		   color CDATA #IMPLIED>
+<!ELEMENT init EMPTY>
+<!ATTLIST init ref IDREF #IMPLIED>
+<!ELEMENT urgent EMPTY>
+<!ELEMENT committed EMPTY>
+<!ELEMENT transition (source, target, label*, nail*)>
+<!ATTLIST transition id  ID #IMPLIED
+                     x   CDATA #IMPLIED
+                     y   CDATA #IMPLIED
+		     color CDATA #IMPLIED>
+<!ELEMENT source EMPTY>
+<!ATTLIST source ref IDREF #REQUIRED>
+<!ELEMENT target EMPTY>
+<!ATTLIST target ref IDREF #REQUIRED>
+<!ELEMENT label (#PCDATA)>
+<!ATTLIST label	kind CDATA #REQUIRED
+		x    CDATA #IMPLIED
+		y    CDATA #IMPLIED>
+<!ELEMENT nail EMPTY>
+<!ATTLIST nail x   CDATA #REQUIRED
+               y   CDATA #REQUIRED>
+<!ELEMENT instantiation (#PCDATA)>
+<!ELEMENT system (#PCDATA)>
+

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, S_reached, P_reached;
+bool R_holds;</declaration>
+	<template>
+		<name x="5" y="5">Precedence_State_Between_Untimed</name>
+		<declaration>// Place local declarations here.
+</declaration>
+		<location id="id0" x="-1300" y="-1530">
+			<committed/>
+		</location>
+		<location id="id1" x="-1445" y="-1530">
+			<committed/>
+		</location>
+		<location id="id2" x="-1555" y="-1530">
+		</location>
+		<location id="id3" x="-892" y="-1428">
+			<name x="-902" y="-1462">ERROR</name>
+		</location>
+		<location id="id4" x="-1019" y="-1428">
+		</location>
+		<location id="id5" x="-1019" y="-1530">
+		</location>
+		<location id="id6" x="-1181" y="-1530">
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-1258" y="-1419">P_holds == 1</label>
+			<label kind="assignment" x="-1257" y="-1402">nxtCmt = 0</label>
+			<nail x="-1283" y="-1504"/>
+			<nail x="-1275" y="-1402"/>
+			<nail x="-1037" y="-1402"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-1283" y="-1555">P_holds == 0</label>
+			<label kind="assignment" x="-1282" y="-1530">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-1427" y="-1564">R_holds == 0 &amp;&amp;
+S_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-1411" y="-1513">R_holds == 0 &amp;&amp;
+S_holds == 1</label>
+			<label kind="assignment" x="-1410" y="-1479">nxtCmt = 0</label>
+			<nail x="-1428" y="-1479"/>
+			<nail x="-1019" y="-1479"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-1547" y="-1504">R_holds == 1</label>
+			<label kind="assignment" x="-1538" y="-1487">nxtCmt = 0</label>
+			<nail x="-1453" y="-1504"/>
+			<nail x="-1547" y="-1504"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-1537" y="-1547">Q_reached?</label>
+			<label kind="assignment" x="-1537" y="-1530">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1562" y="-1641">R_reached?</label>
+			<nail x="-1019" y="-1624"/>
+			<nail x="-1580" y="-1624"/>
+			<nail x="-1580" y="-1530"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-1537" y="-1594">R_reached?</label>
+			<nail x="-1190" y="-1572"/>
+			<nail x="-1555" y="-1573"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1001" y="-1402">S_reached?</label>
+			<nail x="-1019" y="-1385"/>
+			<nail x="-892" y="-1385"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-1001" y="-1445">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-1173" y="-1445">P_reached?</label>
+			<nail x="-1181" y="-1428"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-1164" y="-1547">S_reached?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Precedence_State_Between_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

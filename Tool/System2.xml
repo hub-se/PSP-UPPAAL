@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+
+<nta>
+  <declaration>// 971204, Arne, Fredrik, Kim &amp; Paul.
+// Fairmont Hotel, San Francisco.
+int mayFire = 0;
+bool wait_holds = false;
+bool wait_held_once = false;
+broadcast chan wait_reached;
+bool closing_holds = false;
+bool closing_held_once = false;
+broadcast chan closing_reached;
+bool closed_holds = false;
+bool closed_held_once = false;
+broadcast chan closed_reached;
+bool nxtCmt = 1;</declaration>
+  <template>
+    <name x="0" y="0">Door</name>
+    <parameter>bool &amp;activated, urgent chan &amp;pushed, urgent chan &amp;closed1, urgent chan &amp;closed2</parameter>
+    <declaration>clock x;</declaration>
+    <location x="224" y="96" id="id0">
+      <name x="248" y="104">wait</name>
+    </location>
+    <location x="96" y="368" id="id1">
+      <name x="24" y="352">closing</name>
+      <label x="40" y="368" kind="invariant">x&lt;=6</label>
+    </location>
+    <location x="96" y="224" id="id2">
+      <name x="120" y="208">closed</name>
+      <label x="120" y="224" kind="invariant">x&lt;=5</label>
+    </location>
+    <location x="224" y="368" id="id3">
+      <name x="248" y="352">open</name>
+      <label x="248" y="368" kind="invariant">x&lt;=8</label>
+    </location>
+    <location x="224" y="224" id="id4">
+      <name x="248" y="208">opening</name>
+      <label x="248" y="224" kind="invariant">x&lt;=6</label>
+    </location>
+    <location x="96" y="96" id="id5">
+      <name x="112" y="104">idle</name>
+    </location>
+    <location x="0" y="0" id="id75">
+      <name x="0" y="0">wait_ENTER</name>
+      <committed />
+    </location>
+    <location x="0" y="0" id="id76">
+      <name x="0" y="0" />
+      <label x="0" y="0" kind="invariant">x&lt;=6</label>
+      <committed />
+    </location>
+    <location x="0" y="0" id="id77">
+      <name x="0" y="0">closing_ENTER</name>
+      <label x="0" y="0" kind="invariant">x&lt;=6</label>
+      <committed />
+    </location>
+    <location x="0" y="0" id="id78">
+      <name x="0" y="0" />
+      <label x="0" y="0" kind="invariant">x&lt;=5</label>
+      <committed />
+    </location>
+    <location x="0" y="0" id="id79">
+      <name x="0" y="0">closed_ENTER</name>
+      <label x="0" y="0" kind="invariant">x&lt;=5</label>
+      <committed />
+    </location>
+    <location x="0" y="0" id="id80">
+      <name x="0" y="0" />
+      <committed />
+    </location>
+    <init ref="id5" />
+    <transition>
+      <source ref="id2" />
+      <target ref="id2" />
+      <label x="0" y="0" kind="guard">mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="24" y="192" kind="synchronisation">closed1!</label>
+      <nail x="56" y="248" />
+      <nail x="56" y="224" />
+    </transition>
+    <transition>
+      <source ref="id2" />
+      <target ref="id80" />
+      <label x="0" y="0" kind="guard">x&gt;=5&amp;&amp; mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="0" y="0" kind="assignment">closed_holds = 0,
+mayFire++</label>
+    </transition>
+    <transition>
+      <source ref="id1" />
+      <target ref="id79" />
+      <label x="0" y="0" kind="guard">x==6&amp;&amp; mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="40" y="288" kind="assignment">x=0,
+activated=false,
+closing_holds = 0,
+mayFire++,
+mayFire++,
+closed_holds = 1,
+closed_held_once = 1</label>
+    </transition>
+    <transition>
+      <source ref="id5" />
+      <target ref="id5" />
+      <label x="0" y="0" kind="guard">mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="16" y="64" kind="synchronisation">closed1!</label>
+      <nail x="56" y="120" />
+      <nail x="56" y="96" />
+    </transition>
+    <transition>
+      <source ref="id5" />
+      <target ref="id75" />
+      <label x="0" y="0" kind="guard">mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="128" y="48" kind="synchronisation">pushed?</label>
+      <label x="120" y="64" kind="assignment">activated = true,
+mayFire++,
+wait_holds = 1,
+wait_held_once = 1</label>
+    </transition>
+    <transition>
+      <source ref="id3" />
+      <target ref="id77" />
+      <label x="0" y="0" kind="guard">x&gt;=4&amp;&amp; mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="144" y="376" kind="assignment">x=0,
+mayFire++,
+closing_holds = 1,
+closing_held_once = 1</label>
+    </transition>
+    <transition>
+      <source ref="id4" />
+      <target ref="id3" />
+      <label x="0" y="0" kind="guard">x==6&amp;&amp; mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="232" y="288" kind="assignment">x=0</label>
+    </transition>
+    <transition>
+      <source ref="id0" />
+      <target ref="id76" />
+      <label x="0" y="0" kind="guard">mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="232" y="136" kind="synchronisation">closed2?</label>
+      <label x="232" y="152" kind="assignment">x=0,
+wait_holds = 0,
+mayFire++</label>
+    </transition>
+    <transition>
+      <source ref="id0" />
+      <target ref="id0" />
+      <label x="0" y="0" kind="guard">mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="280" y="80" kind="synchronisation">closed1!</label>
+      <nail x="272" y="72" />
+      <nail x="272" y="96" />
+    </transition>
+    <transition>
+      <source ref="id75" />
+      <target ref="id0" />
+      <label x="0" y="0" kind="synchronisation">wait_reached!</label>
+      <label x="0" y="0" kind="assignment">mayFire--</label>
+    </transition>
+    <transition>
+      <source ref="id76" />
+      <target ref="id4" />
+      <label x="0" y="0" kind="guard">!nxtCmt</label>
+      <label x="0" y="0" kind="assignment">mayFire--</label>
+    </transition>
+    <transition>
+      <source ref="id77" />
+      <target ref="id1" />
+      <label x="0" y="0" kind="synchronisation">closing_reached!</label>
+      <label x="0" y="0" kind="assignment">mayFire--</label>
+    </transition>
+    <transition>
+      <source ref="id78" />
+      <target ref="id79" />
+      <label x="0" y="0" kind="guard">!nxtCmt</label>
+      <label x="0" y="0" kind="assignment">mayFire--,
+mayFire++,
+closed_holds = 1,
+closed_held_once = 1</label>
+    </transition>
+    <transition>
+      <source ref="id79" />
+      <target ref="id2" />
+      <label x="0" y="0" kind="synchronisation">closed_reached!</label>
+      <label x="0" y="0" kind="assignment">mayFire--</label>
+    </transition>
+    <transition>
+      <source ref="id80" />
+      <target ref="id5" />
+      <label x="0" y="0" kind="guard">!nxtCmt</label>
+      <label x="0" y="0" kind="assignment">mayFire--</label>
+    </transition>
+  </template>
+  <template>
+    <name x="0" y="0">User</name>
+    <parameter>bool &amp;activated, urgent chan &amp;pushed</parameter>
+    <declaration>clock w;</declaration>
+    <location x="192" y="160" id="id6" />
+    <location x="96" y="96" id="id7">
+      <name x="72" y="64">idle</name>
+    </location>
+    <init ref="id7" />
+    <transition>
+      <source ref="id7" />
+      <target ref="id6" />
+      <label x="0" y="0" kind="guard">!activated&amp;&amp; mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="72" y="184" kind="assignment">w=0</label>
+      <nail x="96" y="160" />
+    </transition>
+    <transition>
+      <source ref="id6" />
+      <target ref="id7" />
+      <label x="0" y="0" kind="guard">mayFire == 0 &amp;&amp; !nxtCmt</label>
+      <label x="152" y="72" kind="synchronisation">pushed!</label>
+      <nail x="192" y="96" />
+    </transition>
+  </template>
+  <template>
+    <name x="0" y="0">observer</name>
+    <declaration>// Place local declarations here.
+clock c;</declaration>
+    <location x="8" y="-518" id="id0">
+      <committed />
+    </location>
+    <location x="-492" y="-518" id="id1">
+      <name x="-535" y="-526">INIT</name>
+      <committed />
+    </location>
+    <location x="-246" y="-518" id="id2">
+      <committed />
+    </location>
+    <location x="8" y="-629" id="id3" />
+    <location x="161" y="-578" id="id4">
+      <name x="178" y="-586">ERROR</name>
+    </location>
+    <location x="-110" y="-518" id="id5">
+      <label x="-127" y="-552" kind="invariant">c &lt;= t1</label>
+    </location>
+    <location x="-365" y="-577" id="id6" />
+    <init ref="id1" />
+    <transition>
+      <source ref="id5" />
+      <target ref="id0" />
+      <label x="-85" y="-535" kind="guard">c == 1</label>
+      <label x="-92" y="-518" kind="assignment">nxtCmt=1</label>
+    </transition>
+    <transition>
+      <source ref="id2" />
+      <target ref="id1" />
+      <label x="-416" y="-484" kind="guard">closed_holds == 1</label>
+      <nail x="-246" y="-459" />
+      <nail x="-459" y="-459" />
+    </transition>
+    <transition>
+      <source ref="id5" />
+      <target ref="id1" />
+      <label x="-204" y="-450" kind="synchronisation">closed_reached?</label>
+      <label x="-212" y="-425" kind="assignment">nxtCmt=1</label>
+      <nail x="-110" y="-425" />
+      <nail x="-493" y="-425" />
+    </transition>
+    <transition>
+      <source ref="id1" />
+      <target ref="id2" />
+      <label x="-416" y="-552" kind="guard">closing_holds == 1</label>
+      <label x="-382" y="-535" kind="assignment">c = 0</label>
+    </transition>
+    <transition>
+      <source ref="id3" />
+      <target ref="id1" />
+      <label x="-348" y="-645" kind="synchronisation">closed_reached?</label>
+      <label x="-348" y="-629" kind="assignment">nxtCmt=1</label>
+      <nail x="-518" y="-628" />
+      <nail x="-518" y="-552" />
+    </transition>
+    <transition>
+      <source ref="id1" />
+      <target ref="id6" />
+      <label x="-492" y="-594" kind="guard">closing_holds == 0</label>
+      <label x="-474" y="-577" kind="assignment">nxtCmt=0</label>
+      <nail x="-492" y="-577" />
+    </transition>
+    <transition>
+      <source ref="id2" />
+      <target ref="id5" />
+      <label x="-229" y="-535" kind="guard">closed_holds == 0</label>
+      <label x="-228" y="-518" kind="assignment">nxtCmt=0</label>
+    </transition>
+    <transition>
+      <source ref="id6" />
+      <target ref="id2" />
+      <label x="-339" y="-594" kind="synchronisation">closing_reached?</label>
+      <label x="-348" y="-578" kind="assignment">c = 0, nxtCmt=1</label>
+      <nail x="-246" y="-577" />
+    </transition>
+    <transition>
+      <source ref="id3" />
+      <target ref="id4" />
+      <label x="51" y="-663" kind="guard">c &lt;= 3</label>
+      <label x="51" y="-646" kind="synchronisation">wait_reached?</label>
+      <nail x="161" y="-629" />
+    </transition>
+    <transition>
+      <source ref="id0" />
+      <target ref="id3" />
+      <label x="-93" y="-595" kind="guard">wait_holds == 0</label>
+      <label x="-68" y="-578" kind="assignment">nxtCmt=0</label>
+    </transition>
+    <transition>
+      <source ref="id0" />
+      <target ref="id4" />
+      <label x="42" y="-535" kind="guard">wait_holds == 1</label>
+      <label x="42" y="-518" kind="assignment">nxtCmt=0</label>
+      <nail x="161" y="-518" />
+    </transition>
+  </template>
+  <system>Observer = observer();
+bool activated1, activated2;
+urgent chan pushed1, pushed2;
+urgent chan closed1, closed2;
+
+Door1 = Door(activated1, pushed1, closed1, closed2);
+Door2 = Door(activated2, pushed2, closed2, closed1);
+User1 = User(activated1, pushed1);
+User2 = User(activated2, pushed2);
+
+system Door1, Door2, User1, User2, Observer;</system>
+  <queries>
+    <query>
+      <formula>A[] not Observer.ERROR</formula>
+      <comment />
+    </query>
+    <query>
+      <formula>A&lt;&gt; Observer.INIT imply closing and closed</formula>
+      <comment />
+    </query>
+  </queries>
+</nta>
+

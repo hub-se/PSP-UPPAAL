@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC "-//Uppaal Team//DTD Flat System 1.1//EN" "flat-1_1.dtd">
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan Q_reached, P_reached;
+bool Q_holds, P_holds;
+int t1, t2;
+bool nxtCmt = 0;</declaration>
+	<template>
+		<name x="5" y="5">Existence_State_After_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;</declaration>
+		<location id="id0" x="195" y="212">
+			<name x="212" y="204">ERROR</name>
+		</location>
+		<location id="id1" x="-76" y="119">
+			<name x="-144" y="85">P_happens</name>
+		</location>
+		<location id="id2" x="85" y="212">
+			<label kind="invariant" x="42" y="229">c &lt;= t2+1</label>
+		</location>
+		<location id="id3" x="-76" y="212">
+			<committed/>
+		</location>
+		<location id="id4" x="-212" y="212">
+			<name x="-246" y="178">SCOPEOPEN</name>
+			<label kind="invariant" x="-238" y="229">c &lt;= t1</label>
+		</location>
+		<location id="id5" x="-357" y="212">
+			<name x="-408" y="204">INIT</name>
+		</location>
+		<init ref="id5"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="guard" x="110" y="195">c &gt;= t2</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-42" y="85">c &lt;= t2</label>
+			<label kind="synchronisation" x="-42" y="102">P_reached?</label>
+			<nail x="85" y="119"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-68" y="144">P_holds == 1</label>
+			<label kind="assignment" x="-68" y="161">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-42" y="195">P_holds == 0</label>
+			<label kind="assignment" x="-51" y="212">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-178" y="195">c == t1</label>
+			<label kind="assignment" x="-194" y="212">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-339" y="195">Q_reached?</label>
+			<label kind="assignment" x="-323" y="212">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = Existence_State_After_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>Observer.SCOPEOPEN --&gt; Observer.P_happens
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Observer.INIT imply not $Q
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

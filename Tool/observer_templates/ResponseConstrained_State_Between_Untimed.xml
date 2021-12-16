@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan Q_reached, T_reached, R_reached, P_entered, S_entered;
+bool R_holds;</declaration>
+	<template>
+		<name x="5" y="5">ConstrainedResponse_State_Between_Untimed</name>
+		<declaration>// Place local declarations here.
+clock c;
+int l = 3;
+int u = 5;</declaration>
+		<location id="id0" x="646" y="-178">
+		</location>
+		<location id="id1" x="221" y="-178">
+			<committed/>
+		</location>
+		<location id="id2" x="391" y="-178">
+		</location>
+		<location id="id3" x="-195" y="-178">
+			<committed/>
+		</location>
+		<location id="id4" x="-323" y="-178">
+			<committed/>
+		</location>
+		<location id="id5" x="510" y="-178">
+			<committed/>
+		</location>
+		<location id="id6" x="773" y="-178">
+			<name x="798" y="-170">ERROR</name>
+		</location>
+		<location id="id7" x="-459" y="-178">
+		</location>
+		<location id="id8" x="94" y="-178">
+			<committed/>
+		</location>
+		<location id="id9" x="-76" y="-178">
+		</location>
+		<init ref="id7"/>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="guard" x="544" y="-161">R_holds == 1</label>
+			<label kind="assignment" x="545" y="-144">nxtCmt = 0</label>
+			<nail x="527" y="-144"/>
+			<nail x="756" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="664" y="-195">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id0"/>
+			<label kind="guard" x="527" y="-195">R_holds == 0</label>
+			<label kind="assignment" x="528" y="-178">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="guard" x="297" y="-161">T_holds == 1</label>
+			<nail x="221" y="-144"/>
+			<nail x="501" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-50" y="-229">S_holds == 1</label>
+			<label kind="assignment" x="-49" y="-212">nxtCmt = 0</label>
+			<nail x="85" y="-212"/>
+			<nail x="-67" y="-212"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="guard" x="238" y="-195">T_holds == 0</label>
+			<label kind="assignment" x="239" y="-178">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id1"/>
+			<label kind="guard" x="110" y="-195">S_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="119" y="-255">S_entered?</label>
+			<nail x="365" y="-238"/>
+			<nail x="-77" y="-238"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="409" y="-195">T_reached?</label>
+			<label kind="assignment" x="409" y="-178">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="409" y="-238">R_reached?</label>
+			<nail x="391" y="-221"/>
+			<nail x="756" y="-221"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-170" y="-153">P_holds == 1</label>
+			<nail x="-195" y="-136"/>
+			<nail x="93" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-178" y="-195">P_holds == 0</label>
+			<label kind="assignment" x="-177" y="-178">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-306" y="-195">R_holds == 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-442" y="-153">R_holds == 1</label>
+			<label kind="assignment" x="-433" y="-136">nxtCmt = 0</label>
+			<nail x="-340" y="-153"/>
+			<nail x="-442" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-441" y="-195">Q_reached?</label>
+			<label kind="assignment" x="-433" y="-178">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-433" y="-229">R_reached?</label>
+			<nail x="-93" y="-212"/>
+			<nail x="-459" y="-212"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-25" y="-195">P_entered?</label>
+			<label kind="assignment" x="-25" y="-178">nxtCmt = 1</label>
+		</transition>
+	</template>
+	<system>
+Observer = ConstrainedResponse_State_Between_Untimed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

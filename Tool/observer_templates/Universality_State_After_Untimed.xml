@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>broadcast chan Q_reached;
+broadcast chan P_left;</declaration>
+	<template>
+		<name x="5" y="5">Universality_State_After_Untimed</name>
+		<location id="id0" x="42" y="17">
+			<name x="17" y="34">ERROR</name>
+		</location>
+		<location id="id1" x="-68" y="17">
+			<name x="-110" y="34">SCOPEOPEN</name>
+		</location>
+		<location id="id2" x="-195" y="17">
+			<name x="-212" y="34">INIT</name>
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-34" y="-8">P_left?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-178" y="-8">Q_reached?</label>
+		</transition>
+	</template>
+	<system>Observer = Universality_State_After_Untimed();
+system Observer;
+   </system>
+	<queries>
+		<query>
+			<formula>A[] Observer.SCOPEOPEN imply $P
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Observer.INIT imply not $Q
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

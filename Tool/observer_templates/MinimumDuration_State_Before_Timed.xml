@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan P_reached, R_reached, P_left;
+int t1;</declaration>
+	<template>
+		<name x="5" y="5">MinimumDuration_State_Before_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+</declaration>
+		<location id="id0" x="-467" y="-280">
+		</location>
+		<location id="id1" x="-195" y="-374">
+			<name x="-205" y="-408">ERROR</name>
+		</location>
+		<location id="id2" x="-331" y="-374">
+		</location>
+		<location id="id3" x="-475" y="-374">
+			<label kind="invariant" x="-501" y="-408">c &lt;= t1</label>
+		</location>
+		<location id="id4" x="-671" y="-374">
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-654" y="-297">R_reached?</label>
+			<nail x="-671" y="-280"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-603" y="-357">c == t1</label>
+			<nail x="-535" y="-340"/>
+			<nail x="-646" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-313" y="-391">R_reached?</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-314" y="-357">R_reached?</label>
+			<nail x="-416" y="-340"/>
+			<nail x="-212" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-399" y="-408">c &lt; t1</label>
+			<label kind="synchronisation" x="-399" y="-391">P_left?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-653" y="-391">P_reached?</label>
+			<label kind="assignment" x="-653" y="-374">c = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Observer = MinimumDuration_State_Before_Timed();
+// List one or more processes to be composed into a system.
+system Observer;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.ERROR
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

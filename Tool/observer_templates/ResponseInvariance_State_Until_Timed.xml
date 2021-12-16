@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan R_reached, Q_reached, P_reached, S_left;
+bool S_holds, R_holds;</declaration>
+	<template>
+		<name x="5" y="5">ResponseInvariance_State_Until_Timed</name>
+		<declaration>// Place local declarations here.
+clock c;
+int l = 3;
+int u = 5;</declaration>
+		<location id="id0" x="-433" y="-221">
+			<committed/>
+		</location>
+		<location id="id1" x="-178" y="-221">
+			<label kind="invariant" x="-195" y="-255">c &lt;= t1</label>
+		</location>
+		<location id="id2" x="-603" y="-221">
+		</location>
+		<location id="id3" x="51" y="-85">
+			<name x="25" y="-59">ERROR</name>
+		</location>
+		<location id="id4" x="51" y="-221">
+		</location>
+		<location id="id5" x="-76" y="-221">
+			<committed/>
+		</location>
+		<location id="id6" x="-289" y="-221">
+		</location>
+		<init ref="id2"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-561" y="-187">R_holds == 1</label>
+			<label kind="assignment" x="-561" y="-170">nxtCmt = 0</label>
+			<nail x="-442" y="-187"/>
+			<nail x="-586" y="-187"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-416" y="-238">R_holds == 0</label>
+			<label kind="assignment" x="-415" y="-221">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-585" y="-238">Q_reached?</label>
+			<label kind="assignment" x="-585" y="-221">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-585" y="-416">c &gt; t2</label>
+			<label kind="synchronisation" x="-585" y="-399">R_reached?</label>
+			<nail x="51" y="-382"/>
+			<nail x="-603" y="-382"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-153" y="-238">c == t1</label>
+			<label kind="assignment" x="-170" y="-212">nxtCmt = 1</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-272" y="-238">P_reached?</label>
+			<label kind="assignment" x="-271" y="-221">c = 0</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-577" y="-340">c &lt; t1</label>
+			<label kind="synchronisation" x="-576" y="-323">R_reached?</label>
+			<nail x="51" y="-306"/>
+			<nail x="-603" y="-306"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-535" y="-144">R_reached?</label>
+			<nail x="-289" y="-144"/>
+			<nail x="-603" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="51" y="-187">c &lt; t1 &amp;&amp; c &gt; t2</label>
+			<label kind="synchronisation" x="59" y="-127">S_left?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-85" y="-136">S_holds == 0</label>
+			<label kind="assignment" x="-68" y="-119">nxtCmt = 0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-59" y="-246">S_holds == 1</label>
+			<label kind="assignment" x="-58" y="-221">nxtCmt = 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = ResponseInvariance_State_Until_Timed();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not Observer.Error
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>
