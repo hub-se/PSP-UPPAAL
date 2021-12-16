@@ -9,6 +9,7 @@ The result of this project is a **catalog of specification patterns for UPPAAL**
 ## Team
 * [Thomas Vogel](https://github.com/thomas-vogel)
 * [Marc Carwehl](https://github.com/carwehlm)
+* [Genaína Rodrigues](https://github.com/genaina)
 * [Lars Grunske](https://github.com/larsgrunske)
 
 ## Acknowledgement
